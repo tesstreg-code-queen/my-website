@@ -141,6 +141,96 @@ const FONTS = [
   },
 ];
 
+const MUTED_INK = "#6B3A4C";
+
+const BEEHIIV_SETTINGS: {
+  group: string;
+  path: string;
+  rows: { field: string; value: string; hex?: string }[];
+}[] = [
+  {
+    group: "Colors",
+    path: "Style → Basic → Colors",
+    rows: [
+      { field: "Outside Background", value: "Bubblegum", hex: "#FFD3E6" },
+      { field: "Post Background", value: "Cream", hex: "#FFF4EC" },
+      { field: "Text on Background", value: "Ink", hex: "#3B0A1E" },
+      { field: "Primary", value: "Ink (footer, byline, table cells)", hex: "#3B0A1E" },
+      { field: "Text on Primary", value: "Bubblegum", hex: "#FFD3E6" },
+      { field: "Secondary", value: "Ink (borders, dividers)", hex: "#3B0A1E" },
+      { field: "Links", value: "Cherry", hex: "#D91F4F" },
+    ],
+  },
+  {
+    group: "Typography",
+    path: "Style → Basic → Typography",
+    rows: [
+      { field: "Heading font family", value: "Georgia" },
+      { field: "Heading font weight", value: "Bold" },
+      { field: "Paragraph font family", value: "Helvetica" },
+      { field: "Paragraph font weight", value: "Regular" },
+    ],
+  },
+  {
+    group: "Spacing and borders",
+    path: "Style → Basic → Spacing / Borders",
+    rows: [
+      { field: "Margin", value: "24px" },
+      { field: "Padding", value: "32px" },
+      { field: "Corner radius", value: "24px" },
+      { field: "Border thickness", value: "2px (uses Secondary, ink)" },
+    ],
+  },
+  {
+    group: "Email header",
+    path: "Style → Advanced → Email Header",
+    rows: [
+      { field: "Title", value: "Georgia · Bold · 40px · center", hex: "#FF3D8B" },
+      { field: "Subtitle", value: "Helvetica · Regular · 17px · center", hex: MUTED_INK },
+      { field: "Byline font", value: "Helvetica · Bold · 13px", hex: "#D91F4F" },
+      { field: "Image", value: "1200 × 630px branded header" },
+      { field: "Alignment", value: "Center" },
+    ],
+  },
+  {
+    group: "Body",
+    path: "Style → Advanced → Body",
+    rows: [
+      { field: "Text", value: "Helvetica · 17px · line height 1.6", hex: "#3B0A1E" },
+      { field: "H1", value: "Georgia · Bold · 34px · line height 1.1", hex: "#3B0A1E" },
+      { field: "H2", value: "Georgia · Bold · 26px · line height 1.2", hex: "#FF3D8B" },
+      { field: "H3", value: "Helvetica · Bold · 13px · uppercase label", hex: "#D91F4F" },
+    ],
+  },
+  {
+    group: "Widgets",
+    path: "Style → Advanced → Widgets",
+    rows: [
+      { field: "Buttons: font", value: "Helvetica · Bold · 19px" },
+      { field: "Buttons: background", value: "Hot pink", hex: "#FF3D8B" },
+      { field: "Buttons: text", value: "White", hex: "#FFFFFF" },
+      { field: "Buttons: border", value: "2px ink", hex: "#3B0A1E" },
+      { field: "Buttons: radius / padding", value: "50px · 14px 28px" },
+      { field: "Links", value: "Bold, underlined", hex: "#D91F4F" },
+      { field: "Breaks", value: "Dashed · 2px · 40% width", hex: "#FF3D8B" },
+      { field: "Quotes", value: "Georgia italic 22px on bubblegum · 2px ink border · 24px radius", hex: "#FFD3E6" },
+      { field: "Image captions", value: "Helvetica · italic · 14px", hex: MUTED_INK },
+    ],
+  },
+  {
+    group: "Email footer",
+    path: "Style → Advanced → Email Footer",
+    rows: [
+      { field: "Background", value: "Ink", hex: "#3B0A1E" },
+      { field: "Text", value: "Helvetica", hex: "#FFD3E6" },
+      { field: "Border", value: "0px (none)" },
+      { field: "Socials: icon / background", value: "Ink on bubblegum", hex: "#FFD3E6" },
+      { field: "Links", value: "Underlined", hex: "#FFFFFF" },
+      { field: "Alignment", value: "Center" },
+    ],
+  },
+];
+
 function luminance(hex: string) {
   const [r, g, b] = [1, 3, 5].map((i) => {
     const c = parseInt(hex.slice(i, i + 2), 16) / 255;
@@ -286,6 +376,59 @@ export default function DesignPage() {
                   <p className="font-mono text-xs text-ink/60">{style.spec}</p>
                 </div>
                 <p className={`${style.className} overflow-hidden`}>{style.sample}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section>
+          <SectionTitle eyebrow="for the newsletter" title="Beehiiv email settings" />
+          <div className="-mt-4 mb-8 max-w-3xl space-y-3 text-ink/75">
+            <p>
+              Enter these in the template&apos;s Style panel. In the Visual
+              Editor, click an element to open its settings on the right.
+            </p>
+            <p>
+              Email can&apos;t load the site fonts, so Georgia (headings) and
+              Helvetica (body) stand in for Fraunces and Inter. Italicize
+              headline words in the editor for the Fraunces feel. Buttons use
+              19px bold so white on hot pink passes contrast as large text.
+            </p>
+          </div>
+          <div className="grid gap-6 md:grid-cols-2">
+            {BEEHIIV_SETTINGS.map((group) => (
+              <div
+                key={group.group}
+                className="rounded-3xl border-2 border-ink bg-white p-6 shadow-pop"
+              >
+                <h3 className="font-display text-2xl font-bold">{group.group}</h3>
+                <p className="font-mono text-xs text-ink/60">{group.path}</p>
+                <dl className="mt-4 divide-y divide-ink/10">
+                  {group.rows.map((row) => (
+                    <div
+                      key={row.field}
+                      className="grid grid-cols-[minmax(0,1fr)_minmax(0,1.3fr)] gap-4 py-2 text-sm"
+                    >
+                      <dt className="font-bold">{row.field}</dt>
+                      <dd className="flex items-start gap-2">
+                        {row.hex && (
+                          <span
+                            className="mt-0.5 size-4 shrink-0 rounded-full border border-ink"
+                            style={{ backgroundColor: row.hex }}
+                          />
+                        )}
+                        <span>
+                          {row.value}
+                          {row.hex && (
+                            <span className="ml-1 font-mono text-ink/60 select-all">
+                              {row.hex}
+                            </span>
+                          )}
+                        </span>
+                      </dd>
+                    </div>
+                  ))}
+                </dl>
               </div>
             ))}
           </div>
