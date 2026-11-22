@@ -26,14 +26,15 @@ Tess is **not a developer**. She wants to update her site by describing what she
 | Almost everything on the home page | `app/page.tsx` |
 | Booking email | `BOOKING_EMAIL` near the top of `app/page.tsx` |
 | Instagram / TikTok / YouTube links | `SOCIALS` list in `app/page.tsx` |
-| The scrolling pink banner | `MARQUEE` list in `app/page.tsx` |
+| The little pill labels under her name | `FACTS` list in `app/page.tsx` |
+| The round story-style shortcuts | `HIGHLIGHTS` list in `app/page.tsx` |
 | Press articles | `PRESS` list in `app/page.tsx` |
 | YouTube videos in "Watch me" | `VIDEOS` list in `app/page.tsx`. Each needs the YouTube video ID, the part after `watch?v=` |
 | Agent email in the footer | footer section at the bottom of `app/page.tsx` |
 | About / EPIC show text | the `#about` and `#epic` sections in `app/page.tsx` |
 | Page title + Google description | `metadata` in `app/layout.tsx` |
 | Colors, fonts, animations | `app/globals.css` (colors: cream, bubblegum, hotpink, cherry, butter, ink) |
-| Signup form look | `app/signup-form.tsx` |
+| Signup form look | the DM-style box in the `#newsletter` section of `app/page.tsx` (uses `app/signup-form.tsx`) |
 | Signup logic (Beehiiv) | `app/actions.ts` |
 | Photos | `public/` (`tess-red-dress.jpg`, `epic-poster.jpg`) |
 | Style guide page | `app/design/page.tsx`, at /design (hidden from Google) |

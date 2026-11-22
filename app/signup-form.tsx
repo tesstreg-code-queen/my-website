@@ -5,22 +5,32 @@ import { subscribe, type SubscribeState } from "./actions";
 
 const initialState: SubscribeState = { status: "idle", message: "" };
 
+// Same Beehiiv signup as the home page, but every piece can be restyled.
+// Used by the home page newsletter section.
 export function SignupForm({
-  cta = "Slide in",
   placement,
+  cta = "Slide in",
+  placeholder = "your@email.com",
+  rowClass = "flex flex-col gap-3 sm:flex-row",
+  inputClass,
+  buttonClass,
+  successClass = "",
+  errorClass = "mt-2 min-h-5 text-sm",
 }: {
-  cta?: string;
   placement: "hero" | "footer";
+  cta?: string;
+  placeholder?: string;
+  rowClass?: string;
+  inputClass: string;
+  buttonClass: string;
+  successClass?: string;
+  errorClass?: string;
 }) {
   const [state, formAction, pending] = useActionState(subscribe, initialState);
   const inputId = useId();
 
   if (state.status === "success") {
-    return (
-      <p className="font-display rounded-full border-2 border-ink bg-butter px-6 py-3 text-xl italic shadow-pop-sm">
-        {state.message} ♥
-      </p>
-    );
+    return <p className={successClass}>{state.message} ♥</p>;
   }
 
   return (
@@ -32,7 +42,7 @@ export function SignupForm({
           <input type="text" name="company" tabIndex={-1} autoComplete="off" />
         </label>
       </div>
-      <div className="flex flex-col gap-3 sm:flex-row">
+      <div className={rowClass}>
         <label htmlFor={inputId} className="sr-only">
           Email address
         </label>
@@ -41,19 +51,15 @@ export function SignupForm({
           name="email"
           type="email"
           required
-          placeholder="your@email.com"
+          placeholder={placeholder}
           autoComplete="email"
-          className="min-w-0 flex-1 rounded-full border-2 border-ink bg-white px-5 py-3 text-ink placeholder:text-ink/40 focus:outline-none focus:ring-4 focus:ring-hotpink/30"
+          className={`min-w-0 flex-1 focus:outline-none ${inputClass}`}
         />
-        <button
-          type="submit"
-          disabled={pending}
-          className="rounded-full border-2 border-ink bg-hotpink px-7 py-3 font-bold text-white shadow-pop-sm transition hover:-translate-y-0.5 hover:rotate-[-2deg] hover:shadow-pop active:translate-y-0 active:shadow-none disabled:opacity-60"
-        >
+        <button type="submit" disabled={pending} className={`disabled:opacity-60 ${buttonClass}`}>
           {pending ? "Swiping…" : cta}
         </button>
       </div>
-      <p aria-live="polite" className="font-script mt-2 min-h-6 text-xl text-cherry">
+      <p aria-live="polite" className={errorClass}>
         {state.status === "error" ? state.message : ""}
       </p>
     </form>
