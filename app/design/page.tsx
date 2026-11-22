@@ -385,8 +385,11 @@ export default function DesignPage() {
           <SectionTitle eyebrow="for the newsletter" title="Beehiiv email settings" />
           <div className="-mt-4 mb-8 max-w-3xl space-y-3 text-ink/75">
             <p>
-              Enter these in the template&apos;s Style panel. In the Visual
-              Editor, click an element to open its settings on the right.
+              Field names match beehiiv&apos;s legacy Style panel, which welcome
+              and automation emails still use. In the Visual Editor, click the
+              post background for global settings (Style → Post) and click a
+              block to style it. Labels there may differ; the values are the
+              same.
             </p>
             <p>
               Email can&apos;t load the site fonts, so Georgia (headings) and
