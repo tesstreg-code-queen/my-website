@@ -1,8 +1,14 @@
 import type { ReactNode } from "react";
 import Image from "next/image";
+import { Archivo_Black } from "next/font/google";
 import { SignupForm } from "./signup-form";
 import { Heart } from "./heart";
 import { SOCIAL_ICONS } from "./social-icons";
+
+// Chunky block font (used for the "Upcoming shows" heading)
+const blocky = Archivo_Black({ weight: "400", subsets: ["latin"] });
+
+const MAGIC_MIKE_TICKETS = "https://magicmikelive.com/new-york/";
 
 const BOOKING_EMAIL = "tess@select.co";
 
@@ -16,6 +22,7 @@ const SOCIALS = [
 const RING = "bg-[conic-gradient(from_200deg,#ffe27a,#ff3d8b,#d91f4f,#ff3d8b,#ffe27a)]";
 
 const NAV = [
+  { label: "Shows", href: "#shows" },
   { label: "Watch", href: "#watch" },
   { label: "About", href: "#about" },
   { label: "EPIC", href: "#epic" },
@@ -23,15 +30,25 @@ const NAV = [
 ];
 
 const FACTS = [
-  "🎤 Weekly at Stand Up Magic",
-  "📺 Senior Video Producer @ Betches",
-  "💍 Ran a half marathon in a wedding dress",
-  "🎬 Comedy special this fall",
+  { text: "🎤 Upcoming shows", href: "#shows", pink: true },
+  { text: "📺 Acting and comedy reel", href: "#watch" },
+  { text: "💍 Wedding dress viral videos", href: "#watch" },
+  { text: "⭐ EPIC: Comedy Special Premiere 2027", href: "#epic" },
 ];
 
 const HIGHLIGHTS = [
-  { label: "Watch", href: "#watch", img: "https://i.ytimg.com/vi/27OpFNplhCc/hqdefault.jpg" },
-  { label: "About", href: "#about", img: "/tess-red-dress.jpg" },
+  {
+    label: "Stand up",
+    href: "#watch",
+    img: "/tess-stand-up.jpg",
+    crop: "object-[52%_50%] scale-[2.6] origin-[53%_9%]",
+  },
+  {
+    label: "Acting",
+    href: "#watch",
+    img: "/tess-headshot.webp",
+    crop: "object-[50%_8%] scale-[1.25] origin-[5%_50%]",
+  },
   { label: "EPIC", href: "#epic", img: "/epic-poster.jpg" },
   { label: "Press", href: "#press", emoji: "📰", bg: "bg-[#ffe27a]" },
   { label: "Newsletter", href: "#newsletter", emoji: "💌", bg: "bg-[#ffd3e6]" },
@@ -133,22 +150,30 @@ export default function Home() {
           <div className="absolute -right-40 -top-40 size-[34rem] rounded-full bg-[#ffd3e6] blur-3xl opacity-70" aria-hidden="true" />
           <div className="absolute -bottom-40 -left-40 size-[28rem] rounded-full bg-[#ffe27a] blur-3xl opacity-40" aria-hidden="true" />
 
-          <div className="relative mx-auto grid max-w-6xl items-center gap-14 px-6 py-16 md:grid-cols-[1.15fr_1fr] md:py-24">
+          <div className="relative mx-auto grid max-w-6xl items-center gap-14 px-6 pb-16 pt-20 md:grid-cols-[1.15fr_1fr] md:pb-24 md:pt-28">
             <div>
               <p className="font-script text-3xl text-[#d91f4f]">hi, I&apos;m</p>
-              <h1 className="font-display text-[clamp(3.75rem,10vw,7.5rem)] font-black italic leading-[0.85]">
+              <h1 className="font-display text-[clamp(3.75rem,10vw,7.5rem)] font-black leading-[0.85] text-[#ff3d8b]">
                 Tess
                 <br />
                 Tregellas
               </h1>
               <p className="mt-5 text-sm font-bold uppercase tracking-[0.2em] text-[#111]/60">
-                Comedian · Creator · Hopeless Romantic
+                Comedian · Content Creator · Host
               </p>
 
-              <ul className="mt-7 flex flex-wrap gap-2">
+              <ul className="mt-7 flex flex-col items-start gap-2">
                 {FACTS.map((fact) => (
-                  <li key={fact} className="rounded-full border border-[#111]/10 bg-white px-3.5 py-1.5 text-sm shadow-sm">
-                    {fact}
+                  <li key={fact.text}>
+                    <a
+                      href={fact.href}
+                      className={`group inline-flex items-center gap-1.5 rounded-full border bg-white px-3.5 py-1.5 text-sm shadow-sm transition hover:-translate-y-0.5 hover:border-[#ff3d8b] hover:text-[#d91f4f] ${
+                        "pink" in fact ? "border-[#ff3d8b] font-semibold text-[#d91f4f]" : "border-[#111]/10"
+                      }`}
+                    >
+                      {fact.text}
+                      <span aria-hidden="true" className={`transition group-hover:translate-x-0.5 group-hover:text-[#ff3d8b] ${"pink" in fact ? "text-[#ff3d8b]" : "text-[#111]/30"}`}>→</span>
+                    </a>
                   </li>
                 ))}
               </ul>
@@ -158,31 +183,31 @@ export default function Home() {
                   href="#newsletter"
                   className="rounded-full bg-[#ff3d8b] px-7 py-3 font-semibold text-white shadow-[0_8px_20px_-8px_#ff3d8b] transition hover:-translate-y-0.5 hover:bg-[#d91f4f]"
                 >
-                  Slide into my inbox
-                </a>
-                <a
-                  href="#watch"
-                  className="rounded-full border border-[#111]/15 bg-white px-7 py-3 font-semibold transition hover:-translate-y-0.5 hover:border-[#111]/40"
-                >
-                  Watch me
+                  Subscribe to my newsletter
                 </a>
               </div>
             </div>
 
             {/* ringed photo with caption stickers */}
-            <div className="relative mx-auto w-full max-w-[22rem]">
+            <div className="relative mx-auto w-full max-w-[27rem]">
               <Ringed className="aspect-square w-full">
                 <Image
                   src="/tess-red-dress.jpg"
                   alt="Tess Tregellas in a red dress on a New York City street"
                   fill
                   priority
-                  sizes="352px"
-                  className="object-cover object-[50%_30%] scale-[1.35] origin-[50%_40%]"
+                  sizes="432px"
+                  className="object-cover object-[50%_53%] scale-[1.15] origin-[49%_50%]"
                 />
               </Ringed>
-              <Caption className="absolute -left-4 top-8 -rotate-6 text-base">Just hopeful ♥</Caption>
-              <Caption className="absolute -right-2 bottom-10 rotate-3 text-base">waiting for you to text back</Caption>
+              {/* "follow me" button → Instagram */}
+              <a
+                href={SOCIALS[0].href}
+                className="absolute left-0 top-6 flex -rotate-6 items-center gap-1.5 rounded-full border border-[#111]/10 bg-white px-4 py-2 text-sm font-bold text-[#111] shadow-[0_6px_18px_-6px_rgba(0,0,0,0.25)] transition hover:-translate-y-0.5 hover:rotate-0 hover:text-[#ff3d8b] sm:-left-4"
+              >
+                <SOCIAL_ICONS.Instagram className="size-4 text-[#ff3d8b]" />
+                follow me
+              </a>
             </div>
           </div>
 
@@ -191,19 +216,19 @@ export default function Home() {
             <ul className="flex justify-start gap-5 overflow-x-auto pb-2 md:justify-center md:gap-10">
               {HIGHLIGHTS.map((h) => (
                 <li key={h.label} className="shrink-0">
-                  <a href={h.href} className="group flex w-20 flex-col items-center gap-2">
-                    <span className="block size-[4.5rem] rounded-full border-2 border-[#111]/10 p-[3px] transition group-hover:border-[#ff3d8b]">
+                  <a href={h.href} className="group flex w-24 flex-col items-center gap-2">
+                    <span className="block size-[5.75rem] rounded-full border-2 border-[#111]/10 p-[3px] transition group-hover:border-[#ff3d8b]">
                       {h.img ? (
                         <span className="relative block size-full overflow-hidden rounded-full">
-                          <Image src={h.img} alt="" fill sizes="72px" className="object-cover object-top" />
+                          <Image src={h.img} alt="" fill sizes="184px" className={`object-cover ${"crop" in h ? h.crop : "object-top"}`} />
                         </span>
                       ) : (
-                        <span className={`flex size-full items-center justify-center rounded-full text-2xl ${h.bg}`}>
+                        <span className={`flex size-full items-center justify-center rounded-full text-3xl ${h.bg}`}>
                           {h.emoji}
                         </span>
                       )}
                     </span>
-                    <span className="text-xs font-semibold">{h.label}</span>
+                    <span className="text-sm font-semibold">{h.label}</span>
                   </a>
                 </li>
               ))}
@@ -211,11 +236,93 @@ export default function Home() {
           </div>
         </section>
 
+        {/* UPCOMING SHOWS — swap in real dates + ticket links when you have them */}
+        <section id="shows" className="scroll-mt-16 border-t border-[#111]/10">
+          <div className="mx-auto max-w-6xl px-6 py-20">
+            <div>
+              <p className="font-script text-3xl text-[#d91f4f]">come say hi</p>
+              <h2 className={`${blocky.className} mt-1 text-4xl uppercase leading-none tracking-tight text-[#111] sm:text-5xl md:text-6xl`}>
+                Upcoming shows
+              </h2>
+            </div>
+            <ul className="mt-10 divide-y divide-[#111]/10 border-y border-[#111]/10">
+              {[
+                {
+                  when: ["Shows begin", "Jan 28th"],
+                  what: "Magic Mike Live",
+                  where: "New York City",
+                  role: "Host",
+                  button: { label: "Get tickets", href: MAGIC_MIKE_TICKETS, external: true },
+                },
+                {
+                  when: ["2027"],
+                  what: "EPIC: Comedy Special",
+                  where: "Premiere",
+                  role: "Comedy, Music & Romance",
+                  button: { label: "Get updates", href: "#newsletter", external: false },
+                },
+              ].map((show) => (
+                <li key={show.what} className="grid gap-2 py-6 sm:grid-cols-[10rem_1fr_auto] sm:items-center sm:gap-6">
+                  <p className="text-sm font-bold uppercase leading-snug tracking-wider text-[#d91f4f]">
+                    {show.when.map((line) => (
+                      <span key={line} className="block">
+                        {line}
+                      </span>
+                    ))}
+                  </p>
+                  <div>
+                    {show.button.external ? (
+                      <a
+                        href={show.button.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="font-display text-2xl font-bold underline decoration-[#ff3d8b]/40 underline-offset-4 transition hover:text-[#d91f4f] hover:decoration-[#ff3d8b]"
+                      >
+                        {show.what}
+                      </a>
+                    ) : (
+                      <p className="font-display text-2xl font-bold">{show.what}</p>
+                    )}
+                    <p className="text-[#111]/60">
+                      {show.where} · {show.role}
+                    </p>
+                  </div>
+                  <a
+                    href={show.button.href}
+                    {...(show.button.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+                    className={`justify-self-start rounded-full px-5 py-2 text-sm font-semibold transition sm:justify-self-end ${
+                      show.button.external
+                        ? "bg-[#ff3d8b] text-white shadow-[0_8px_20px_-8px_#ff3d8b] hover:-translate-y-0.5 hover:bg-[#d91f4f]"
+                        : "border border-[#111]/15 hover:border-[#ff3d8b] hover:text-[#d91f4f]"
+                    }`}
+                  >
+                    {show.button.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+            <p className="mt-6 text-[#111]/60">
+              More dates coming soon. Subscribe and you&apos;ll hear first.
+            </p>
+            <a
+              href="#newsletter"
+              className="mt-5 inline-block rounded-full border border-[#ff3d8b]/40 bg-white px-7 py-3 font-semibold text-[#ff3d8b] shadow-sm transition hover:-translate-y-0.5 hover:border-[#ff3d8b] hover:text-[#d91f4f]"
+            >
+              Subscribe
+            </a>
+          </div>
+        </section>
+
         {/* WATCH */}
         <section id="watch" className="scroll-mt-16 border-t border-[#111]/10 bg-white">
           <div className="mx-auto max-w-6xl px-6 py-20">
             <div className="flex flex-wrap items-end justify-between gap-4">
-              <SectionTitle kicker="go on, stare" title="Watch me" />
+              <div>
+                <p className="font-script text-3xl text-[#d91f4f]">go on, stare</p>
+                <h2 className={`${blocky.className} mt-1 text-4xl uppercase leading-none tracking-tight text-[#111] sm:text-5xl md:text-6xl`}>
+                  Videos
+                </h2>
+              </div>
               <a
                 href={SOCIALS[2].href}
                 className="rounded-full border border-[#111]/15 px-5 py-2 text-sm font-semibold transition hover:border-[#111]/40"
