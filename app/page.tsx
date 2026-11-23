@@ -365,11 +365,7 @@ export default function Home() {
                   <a
                     href={show.button.href}
                     {...(show.button.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-                    className={`justify-self-start rounded-full px-5 py-2 text-sm font-semibold transition sm:justify-self-end ${
-                      show.button.external
-                        ? "bg-[#ff3d8b] text-white shadow-[0_8px_20px_-8px_#ff3d8b] hover:-translate-y-0.5 hover:bg-[#d91f4f]"
-                        : "border border-[#111]/15 hover:border-[#ff3d8b] hover:text-[#d91f4f]"
-                    }`}
+                    className="justify-self-start rounded-full bg-[#ff3d8b] px-5 py-2 text-sm font-semibold text-white shadow-[0_8px_20px_-8px_#ff3d8b] transition hover:-translate-y-0.5 hover:bg-[#d91f4f] sm:justify-self-end"
                   >
                     {show.button.label}
                   </a>
