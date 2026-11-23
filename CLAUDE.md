@@ -30,7 +30,6 @@ Tess is **not a developer**. She wants to update her site by describing what she
 | The round story-style shortcuts | `HIGHLIGHTS` list in `app/page.tsx` |
 | Press articles | `PRESS` list in `app/page.tsx` |
 | YouTube videos in "Watch me" | `VIDEOS` list in `app/page.tsx`. Each needs the YouTube video ID, the part after `watch?v=` |
-| Agent email in the footer | footer section at the bottom of `app/page.tsx` |
 | About / EPIC show text | the `#about` and `#epic` sections in `app/page.tsx` |
 | Page title + Google description | `metadata` in `app/layout.tsx` |
 | Colors, fonts, animations | `app/globals.css` (colors: cream, bubblegum, hotpink, cherry, butter, ink) |

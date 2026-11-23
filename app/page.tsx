@@ -50,7 +50,7 @@ const HIGHLIGHTS = [
     crop: "object-[50%_8%] scale-[1.25] origin-[5%_50%]",
   },
   { label: "EPIC", href: "#epic", img: "/epic-poster.jpg" },
-  { label: "Press", href: "#press", emoji: "📰", bg: "bg-[#ffe27a]" },
+  { label: "Press", href: "#press", emoji: "📰", bg: "bg-[#ffe27a]", emojiSize: "text-5xl" },
   { label: "Newsletter", href: "#newsletter", emoji: "💌", bg: "bg-[#ffd3e6]" },
 ];
 
@@ -93,19 +93,41 @@ const VIRAL = [
   },
 ];
 
+// Branded content Reels. Add a brand name as `title` and a screenshot as `cover`
+// (e.g. cover: "/branded/brand-name.webp") when Tess sends them.
+const BRANDED: { href: string; title?: string; cover?: string; bg: string; ink: string }[] = [
+  { href: "https://www.instagram.com/reel/DbdtdlwOsCk/", title: "Secret", cover: "/branded/secret.webp", bg: "bg-gradient-to-br from-[#ff3d8b] to-[#d91f4f]", ink: "text-white" },
+  { href: "https://www.instagram.com/reel/DY4vcx6REdN/", title: "Toyota", cover: "/branded/toyota.webp", bg: "bg-gradient-to-br from-[#ffe27a] to-[#ff9f6e]", ink: "text-[#111]" },
+  { href: "https://www.instagram.com/reel/DTNoqFsDmg3/", title: "Health-Ade", cover: "/branded/health-ade.webp", bg: "bg-gradient-to-br from-[#ffd3e6] to-[#ff8fc0]", ink: "text-[#111]" },
+  { href: "https://www.instagram.com/reel/Df5bnHsOkhI/", title: "Pepper", cover: "/branded/pepper.webp", bg: "bg-gradient-to-br from-[#2b2b2b] to-[#111]", ink: "text-white" },
+];
+
 const PRESS = [
-  {
-    outlet: "The New York Times",
-    headline: "What to Do in New York City in February",
-    note: "they put me in the paper!!",
-    bg: "bg-[#ffe27a]",
-  },
   {
     outlet: "New York Post",
     headline:
       "NYC singleton runs Brooklyn Half Marathon in a wedding dress while on the hunt for a husband: ‘He might be at the finish line!’",
     note: "he was not at the finish line",
     bg: "bg-[#ffd3e6]",
+    href: "https://nypost.com/2025/05/17/lifestyle/nyc-singleton-runs-brooklyn-half-marathon-in-a-wedding-dress-while-on-the-hunt-for-a-husband-he-might-be-at-the-finish-line/",
+    clipping: "/press/ny-post-clipping.webp",
+    clippingSize: [678, 878],
+    clippingAlt: "New York Post article: NYC singleton runs Brooklyn Half Marathon in a wedding dress",
+    videoId: "_gPzEfnUv6M",
+  },
+  {
+    outlet: "Variety",
+    headline: "Betches Sets First Scripted Long-Form Comedy Series, ‘Sisters’",
+    note: "I'm in Variety!!",
+    clipping: "/press/variety-clipping.webp",
+    clippingSize: [1104, 1122],
+    clippingAlt: "Variety article: Betches Sets First Scripted Long-Form Comedy Series, Sisters",
+    excerpt: "/press/variety-quote.png",
+    excerptSize: [822, 352],
+    excerptAlt:
+      "Variety: “Sisters,” a comedy series “that proves you never outgrow your family,” was developed by and stars homegrown Betches comedy stars Tess Tregellas and Madeline Mahoney.",
+    bg: "bg-[#ffe27a]",
+    href: "https://variety.com/2026/digital/news/betches-sisters-first-scripted-long-form-comedy-series-1236781997/",
   },
 ];
 
@@ -256,7 +278,7 @@ export default function Home() {
                           <Image src={h.img} alt="" fill sizes="184px" className={`object-cover ${"crop" in h ? h.crop : "object-top"}`} />
                         </span>
                       ) : (
-                        <span className={`flex size-full items-center justify-center rounded-full text-3xl ${h.bg}`}>
+                        <span className={`flex size-full items-center justify-center rounded-full ${"emojiSize" in h ? h.emojiSize : "text-3xl"} ${h.bg}`}>
                           {h.emoji}
                         </span>
                       )}
@@ -482,16 +504,16 @@ export default function Home() {
         <section id="epic" className="scroll-mt-16 bg-[#111] text-white">
           <div className="mx-auto grid max-w-6xl items-center gap-14 px-6 py-24 md:grid-cols-2">
             <div className="relative mx-auto w-full max-w-sm">
-              <div className="relative aspect-[4/5] overflow-hidden rounded-[2rem]">
+              <div className="relative aspect-[40/51] overflow-hidden rounded-[2rem]">
                 <Image
                   src="/epic-poster.jpg"
                   alt="EPIC: Comedy, Music & Romance poster"
                   fill
                   sizes="(min-width: 768px) 384px, 90vw"
-                  className="object-cover"
+                  className="object-cover object-top"
                 />
               </div>
-              <Caption className="absolute -right-3 -top-3 rotate-6 bg-[#ffe27a]">Special this fall!</Caption>
+              <Caption className="absolute -bottom-4 left-1/2 -translate-x-1/2 -rotate-3 whitespace-nowrap bg-[#ffe27a] text-base">SPECIAL COMING SOON!</Caption>
             </div>
             <div>
               <p className="font-script text-3xl text-[#ffd3e6]">my solo show</p>
@@ -502,21 +524,31 @@ export default function Home() {
                 dating. Come find out if running around New York City in a wedding dress
                 helped me find my prince charming.
               </p>
-              <div className="mt-8 rounded-2xl bg-white/[0.07] p-6">
-                <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#ff3d8b]">EPIC&apos;s dating profile</p>
-                <dl className="mt-4 space-y-3 text-[15px]">
-                  {[
-                    ["Looking for", "Prince charming, or a solid audience"],
-                    ["Seen at", "New York Comedy Festival, Knockouts Comedy Festival"],
-                    ["Dealbreaker", "“Let’s keep it casual” 🚩"],
-                  ].map(([term, detail]) => (
-                    <div key={term} className="flex flex-col gap-0.5 sm:flex-row sm:gap-3">
-                      <dt className="w-28 shrink-0 font-semibold text-white">{term}</dt>
-                      <dd className="text-white/75">{detail}</dd>
-                    </div>
-                  ))}
-                </dl>
-              </div>
+              {/* EPIC teaser */}
+              <a
+                href="https://www.youtube.com/watch?v=GeaT2KYBv4o"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group mt-8 block"
+              >
+                <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#ff3d8b]">Watch the teaser</p>
+                <div className="relative mt-3 aspect-video overflow-hidden rounded-2xl bg-black ring-1 ring-white/10 transition group-hover:ring-2 group-hover:ring-[#ff3d8b]">
+                  <Image
+                    src="https://i.ytimg.com/vi/GeaT2KYBv4o/maxres3.jpg"
+                    alt="EPIC teaser video"
+                    fill
+                    sizes="(min-width: 768px) 520px, 90vw"
+                    className="object-cover transition duration-500 group-hover:scale-105"
+                  />
+                  <span className="absolute inset-0 flex items-center justify-center">
+                    <span className="flex size-16 items-center justify-center rounded-full bg-[#ff3d8b] text-white shadow-[0_8px_24px_-6px_#ff3d8b] transition group-hover:scale-110">
+                      <svg viewBox="0 0 24 24" aria-hidden="true" className="ml-1 size-7" fill="currentColor">
+                        <path d="M7 5l12 7-12 7z" />
+                      </svg>
+                    </span>
+                  </span>
+                </div>
+              </a>
             </div>
           </div>
         </section>
@@ -524,15 +556,170 @@ export default function Home() {
         {/* PRESS */}
         <section id="press" className="scroll-mt-16">
           <div className="mx-auto max-w-6xl px-6 py-24">
-            <SectionTitle kicker="they're talking" title="Press" />
+            <div>
+              <p className="font-script text-3xl text-[#d91f4f]">they&apos;re talking</p>
+              <h2 className={`${blocky.className} mt-1 text-4xl uppercase leading-none tracking-tight text-[#111] sm:text-5xl md:text-6xl`}>
+                Press
+              </h2>
+            </div>
             <div className="mt-12 grid gap-6 md:grid-cols-2">
               {PRESS.map((item) => (
-                <article key={item.outlet} className={`relative rounded-[2rem] ${item.bg} p-8 pb-12`}>
+                <article
+                  key={item.outlet}
+                  className={`relative rounded-[2rem] ${item.bg} p-8 pb-12 ${"clipping" in item ? "md:col-span-2 md:grid md:grid-cols-[1.1fr_1fr] md:gap-10 md:p-10 md:pb-14" : ""}`}
+                >
+                  <div>
                   <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#111]/60">{item.outlet}</p>
-                  <h3 className="font-display mt-3 text-2xl font-bold leading-snug">“{item.headline}”</h3>
+                  <h3 className="font-display mt-3 text-2xl font-bold leading-snug">
+                    {"quoted" in item && !item.quoted ? item.headline : `“${item.headline}”`}
+                  </h3>
+                  {"href" in item && (
+                    <a
+                      href={item.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="mt-5 inline-flex items-center gap-1.5 rounded-full bg-white px-4 py-2 text-sm font-semibold text-[#d91f4f] shadow-sm transition hover:-translate-y-0.5 hover:text-[#ff3d8b]"
+                    >
+                      Read the article →
+                    </a>
+                  )}
+                  {"excerpt" in item && (
+                    <div className="mt-8 -rotate-1 overflow-hidden rounded-xl bg-white p-3 shadow-[0_16px_32px_-18px_rgba(0,0,0,0.4)] transition hover:rotate-0">
+                      <Image
+                        src={item.excerpt as string}
+                        alt={item.excerptAlt as string}
+                        width={item.excerptSize![0]}
+                        height={item.excerptSize![1]}
+                        sizes="(min-width: 768px) 480px, 90vw"
+                        className="h-auto w-full"
+                      />
+                    </div>
+                  )}
+                  {"videoId" in item && (
+                    <a
+                      href={`https://www.youtube.com/watch?v=${item.videoId}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="group mt-8 block"
+                    >
+                      <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#d91f4f]">Watch the run</p>
+                      <div className="relative mt-3 aspect-video overflow-hidden rounded-2xl bg-[#111] shadow-sm">
+                        <Image
+                          src={`https://i.ytimg.com/vi/${item.videoId}/maxresdefault.jpg`}
+                          alt="Video of Tess running the Brooklyn Half Marathon in a wedding dress"
+                          fill
+                          sizes="(min-width: 768px) 520px, 90vw"
+                          className="object-cover transition duration-500 group-hover:scale-105"
+                        />
+                        <span className="absolute bottom-3 right-3 flex size-12 items-center justify-center rounded-full bg-white/90 text-[#111] transition group-hover:scale-110 group-hover:bg-[#ff3d8b] group-hover:text-white">
+                          <svg viewBox="0 0 24 24" aria-hidden="true" className="ml-0.5 size-5" fill="currentColor">
+                            <path d="M7 5l12 7-12 7z" />
+                          </svg>
+                        </span>
+                      </div>
+                    </a>
+                  )}
+                  </div>
+                  {"clipping" in item && (() => {
+                    const clip = (
+                      <Image
+                        src={item.clipping as string}
+                        alt={item.clippingAlt as string}
+                        width={item.clippingSize![0]}
+                        height={item.clippingSize![1]}
+                        sizes="(min-width: 768px) 384px, 90vw"
+                        className="h-auto w-full"
+                      />
+                    );
+                    const frame =
+                      "mx-auto mt-10 block w-full max-w-sm rotate-2 overflow-hidden rounded-xl bg-white shadow-[0_20px_40px_-20px_rgba(0,0,0,0.45)] transition hover:rotate-0 md:mt-0 md:self-center";
+                    return "href" in item ? (
+                      <a href={item.href} target="_blank" rel="noopener noreferrer" className={frame}>
+                        {clip}
+                      </a>
+                    ) : (
+                      <div className={frame}>{clip}</div>
+                    );
+                  })()}
                   <Caption className="absolute -bottom-4 right-8 rotate-2 text-base">{item.note}</Caption>
                 </article>
               ))}
+            </div>
+          </div>
+        </section>
+
+        {/* BRANDED CONTENT — add brand videos to BRANDED once Tess sends them */}
+        <section id="branded" className="scroll-mt-16 border-t border-[#111]/10 bg-white">
+          <div className="mx-auto max-w-6xl px-6 py-24">
+            <div className="flex flex-wrap items-end justify-between gap-6">
+              <div>
+                <p className="font-script text-3xl text-[#d91f4f]">ads that don&apos;t feel like ads</p>
+                <h2 className={`${blocky.className} mt-1 text-4xl uppercase leading-none tracking-tight text-[#111] sm:text-5xl md:text-6xl`}>
+                  Branded content
+                </h2>
+                <p className="mt-5 max-w-xl text-lg leading-relaxed text-[#111]/75">
+                  Want your brand in on the joke? I write, star in, and produce comedy
+                  content for brands.
+                </p>
+              </div>
+              <a
+                href="#work"
+                className="rounded-full border border-[#ff3d8b]/40 bg-white px-6 py-3 font-semibold text-[#ff3d8b] shadow-sm transition hover:-translate-y-0.5 hover:border-[#ff3d8b] hover:text-[#d91f4f]"
+              >
+                Let&apos;s work together →
+              </a>
+            </div>
+            <div className="mt-12 grid grid-cols-2 gap-4 md:grid-cols-4 md:gap-6">
+              {BRANDED.map((reel) => (
+                <a key={reel.href} href={reel.href} target="_blank" rel="noopener noreferrer" className="group block">
+                  <h3 className="font-display mb-3 flex min-h-[2.5em] items-end text-lg font-bold leading-tight text-[#ff3d8b] transition group-hover:text-[#d91f4f] md:text-xl">
+                    {reel.title ?? "\u00a0"}
+                  </h3>
+                  <div className={`relative aspect-[9/16] overflow-hidden rounded-2xl ${reel.bg} transition duration-300 group-hover:-translate-y-1 group-hover:shadow-[0_20px_40px_-20px_rgba(217,31,79,0.6)]`}>
+                    {reel.cover ? (
+                      <Image src={reel.cover} alt="" fill sizes="(min-width: 768px) 25vw, 50vw" className="object-cover object-top transition duration-500 group-hover:scale-105" />
+                    ) : (
+                      <span className="absolute inset-0 flex flex-col items-center justify-center gap-2 p-4 text-center">
+                        <SOCIAL_ICONS.Instagram className={`size-12 ${reel.ink}`} />
+                        <span className={`text-sm font-semibold ${reel.ink}`}>Watch on Instagram</span>
+                      </span>
+                    )}
+                    <span className="absolute bottom-3 right-3 flex size-11 items-center justify-center rounded-full bg-white/90 text-[#111] transition group-hover:scale-110 group-hover:bg-[#ff3d8b] group-hover:text-white">
+                      <svg viewBox="0 0 24 24" aria-hidden="true" className="ml-0.5 size-5" fill="currentColor">
+                        <path d="M7 5l12 7-12 7z" />
+                      </svg>
+                    </span>
+                  </div>
+                </a>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* WORK WITH ME */}
+        <section id="work" className="scroll-mt-16 border-t border-[#111]/10">
+          <div className="mx-auto max-w-6xl px-6 py-24">
+            <div className={`${RING} rounded-[2.4rem] p-[4px]`}>
+              <div className="flex flex-col items-start gap-8 rounded-[2.2rem] bg-[#fffaf7] p-8 md:flex-row md:items-center md:justify-between md:p-14">
+                <div>
+                  <p className="font-script text-3xl text-[#d91f4f]">let&apos;s make something</p>
+                  <h2 className={`${blocky.className} mt-1 text-4xl uppercase leading-none tracking-tight text-[#111] sm:text-5xl md:text-6xl`}>
+                    Work with me
+                  </h2>
+                  <p className="mt-5 max-w-xl text-lg leading-relaxed text-[#111]/75">
+                    Branded content, acting, or just down to clown? Email me at{" "}
+                    <a href={`mailto:${BOOKING_EMAIL}`} className="font-semibold text-[#d91f4f] underline decoration-[#ff3d8b]/40 underline-offset-4 hover:decoration-[#ff3d8b]">
+                      {BOOKING_EMAIL}
+                    </a>
+                  </p>
+                </div>
+                <a
+                  href={`mailto:${BOOKING_EMAIL}`}
+                  className="shrink-0 rounded-full bg-[#ff3d8b] px-8 py-4 font-semibold text-white shadow-[0_8px_20px_-8px_#ff3d8b] transition hover:-translate-y-0.5 hover:bg-[#d91f4f]"
+                >
+                  Email me
+                </a>
+              </div>
             </div>
           </div>
         </section>
@@ -546,8 +733,7 @@ export default function Home() {
                 Can I get your email?
               </h2>
               <p className="mt-4 text-lg text-[#111]/75">
-                Join <strong className="text-[#111]">The Hopeless Romantic Report</strong>: show
-                dates, new specials, and updates from the dating trenches.
+                Follow along and get show dates, previews for new series, and more!
               </p>
             </div>
 
@@ -563,9 +749,7 @@ export default function Home() {
               </div>
               <div className="space-y-2 p-4">
                 {[
-                  "hey 👋",
-                  "Tickets go to the list first.",
-                  "Don’t make it weird. Just subscribe. I promise I’ll text back 💌",
+                  "Hey, subscribe and I’ll slide into your gmail",
                 ].map((msg) => (
                   <p key={msg} className="w-fit max-w-[85%] rounded-3xl bg-[#111]/[0.06] px-4 py-2.5 text-[15px] leading-snug">
                     {msg}
@@ -608,10 +792,6 @@ export default function Home() {
             Booking:{" "}
             <a href={`mailto:${BOOKING_EMAIL}`} className="underline hover:text-white">
               {BOOKING_EMAIL}
-            </a>{" "}
-            ·{" "}
-            <a href="mailto:agold@agi-entertainment.com" className="underline hover:text-white">
-              agold@agi-entertainment.com
             </a>
           </p>
         </div>
