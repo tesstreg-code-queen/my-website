@@ -25,8 +25,8 @@ const NAV = [
   { label: "Shows", href: "#shows" },
   { label: "Watch", href: "#watch" },
   { label: "About", href: "#about" },
-  { label: "EPIC", href: "#epic" },
   { label: "Press", href: "#press" },
+  { label: "Get in touch", href: "#work" },
 ];
 
 const FACTS = [
@@ -190,7 +190,7 @@ export default function Home() {
           <a href="#" className="font-display flex items-center gap-1.5 text-2xl font-black italic">
             Tess <Heart className="size-4 text-[#ff3d8b]" />
           </a>
-          <nav className="hidden items-center gap-8 text-sm font-semibold md:flex">
+          <nav className="hidden items-center gap-3.5 text-xs font-bold uppercase tracking-wider md:flex lg:gap-5 lg:text-[13px] xl:gap-7">
             {NAV.map((item) => (
               <a key={item.href} href={item.href} className="transition hover:text-[#ff3d8b]">
                 {item.label}
@@ -198,7 +198,7 @@ export default function Home() {
             ))}
           </nav>
           <div className="flex items-center gap-4">
-            <div className="hidden items-center gap-3 sm:flex">
+            <div className="hidden items-center gap-3 sm:flex md:hidden lg:flex">
               {SOCIALS.map((s) => {
                 const Icon = SOCIAL_ICONS[s.label];
                 return (
