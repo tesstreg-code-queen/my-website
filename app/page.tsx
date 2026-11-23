@@ -458,14 +458,21 @@ export default function Home() {
             <div className="space-y-5 text-lg leading-relaxed text-[#111]/80">
               <SectionTitle kicker="the backstory" title="About" />
               <p className="pt-3">
-                I&apos;m a stand-up comedian and content creator in New York City. I
-                perform weekly at <strong className="text-[#111]">Stand Up Magic</strong> and just
-                wrapped a nationwide tour with the show.
+                I&apos;m a stand-up comedian, content creator, actor, and host based in
+                New York City. I&apos;m about to host{" "}
+                <strong className="text-[#111]">Magic Mike Live</strong> in New York starting in January.
               </p>
               <p>
-                By day I&apos;m a Senior Video Producer at <strong className="text-[#111]">Betches Media</strong>,
-                writing, directing, and starring in viral sketches. By night I&apos;m
-                running marathons in a wedding dress. For research.
+                You may recognize me from <strong className="text-[#111]">Betches</strong>&apos; viral
+                videos, or as the host of <strong className="text-[#111]">Stand Up Magic</strong>, where I
+                worked alongside the most talented magicians in NYC, or from my own viral
+                videos running around in a wedding dress. All of this led to writing my
+                hour, <strong className="text-[#111]">EPIC</strong>, premiering in 2027.
+              </p>
+              <p>
+                I&apos;m a Gemini, people pleaser, musical theater kid turned comedian.
+                I&apos;m an avoidant, turned anxious, aspiring secure. I have dyslexia,
+                ADHD, and love to randomly start talking in an Australian accent.
               </p>
             </div>
           </div>
