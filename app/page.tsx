@@ -32,7 +32,7 @@ const NAV = [
 const FACTS = [
   { text: "🎤 Upcoming shows", href: "#shows", pink: true },
   { text: "📺 Acting and comedy reel", href: "#watch" },
-  { text: "💍 Wedding dress viral videos", href: "#watch" },
+  { text: "👰‍♀️ Press (running around NYC in a wedding dress)", href: "#press" },
   { text: "⭐ EPIC: Comedy Special Premiere 2027", href: "#epic" },
 ];
 
@@ -55,10 +55,42 @@ const HIGHLIGHTS = [
 ];
 
 const VIDEOS = [
-  { id: "LzeTa8El9hE", title: "SISTERS, Ep. 1: “The Move-In”", tag: "Betches Originals" },
-  { id: "27OpFNplhCc", title: "10 Minute Set", tag: "Stand-up" },
-  { id: "8JiNTywF5Fk", title: "Marry-thon", tag: "Short" },
-  { id: "BlPAxX6n5vI", title: "Last First Goodbye", tag: "Short" },
+  { id: "-1vGLpEhdIY", title: "Stand-up Set", tag: "Stand-up" },
+  { id: "OXo-ZrOFx6o", title: "Acting Reel", tag: "Acting" },
+  { id: "LzeTa8El9hE", title: "Betches Original Series", tag: "SISTERS, Ep. 1: “The Move-In”" },
+];
+
+// Vertical videos (Instagram Reels). Instagram doesn't share preview images,
+// so each card shows a color until a "cover" image is added (e.g. cover: "/reel-wedding.jpg").
+const VIRAL = [
+  {
+    title: "Viral Wedding Dress",
+    href: "https://www.instagram.com/reels/CyTSmrkA7vF/",
+    emoji: "💍",
+    bg: "bg-gradient-to-br from-[#ff3d8b] to-[#d91f4f]",
+    cover: "/reels/wedding-dress.jpg" as string | undefined,
+  },
+  {
+    title: "Sketches",
+    href: "https://www.instagram.com/reel/DGS41ggAxis/",
+    emoji: "💨",
+    bg: "bg-gradient-to-br from-[#ffe27a] to-[#ff9f6e]",
+    cover: "/reels/chiropractor.webp" as string | undefined,
+  },
+  {
+    title: "Time Traveling Knight",
+    href: "https://www.instagram.com/reel/DdjrHnBu-Dd/",
+    emoji: "🗡️",
+    bg: "bg-gradient-to-br from-[#2b2b2b] to-[#111]",
+    cover: "/reels/time-traveling-knight.webp" as string | undefined,
+  },
+  {
+    title: "Girls Getting Ready",
+    href: "https://www.instagram.com/reel/DCxDKCVSOHw/",
+    emoji: "💄",
+    bg: "bg-gradient-to-br from-[#ffd3e6] to-[#ff8fc0]",
+    cover: "/reels/girls-getting-ready.webp" as string | undefined,
+  },
 ];
 
 const PRESS = [
@@ -167,6 +199,7 @@ export default function Home() {
                   <li key={fact.text}>
                     <a
                       href={fact.href}
+                      {...(fact.href.startsWith("http") ? { target: "_blank", rel: "noopener noreferrer" } : {})}
                       className={`group inline-flex items-center gap-1.5 rounded-full border bg-white px-3.5 py-1.5 text-sm shadow-sm transition hover:-translate-y-0.5 hover:border-[#ff3d8b] hover:text-[#d91f4f] ${
                         "pink" in fact ? "border-[#ff3d8b] font-semibold text-[#d91f4f]" : "border-[#111]/10"
                       }`}
@@ -318,7 +351,7 @@ export default function Home() {
           <div className="mx-auto max-w-6xl px-6 py-20">
             <div className="flex flex-wrap items-end justify-between gap-4">
               <div>
-                <p className="font-script text-3xl text-[#d91f4f]">go on, stare</p>
+                <p className="font-script text-3xl text-[#d91f4f]">check out my work</p>
                 <h2 className={`${blocky.className} mt-1 text-4xl uppercase leading-none tracking-tight text-[#111] sm:text-5xl md:text-6xl`}>
                   Videos
                 </h2>
@@ -330,20 +363,20 @@ export default function Home() {
                 More on YouTube →
               </a>
             </div>
-            <div className="mt-12 grid grid-cols-2 gap-4 md:grid-cols-4 md:gap-5">
+            <div className="mt-12 grid gap-6 sm:grid-cols-3 md:gap-8">
               {VIDEOS.map((video) => (
                 <a key={video.id} href={`https://www.youtube.com/watch?v=${video.id}`} className="group block">
-                  <div className="relative aspect-[4/5] overflow-hidden rounded-2xl bg-[#111]">
+                  <h3 className="font-display mb-3 text-2xl font-bold text-[#ff3d8b] transition group-hover:text-[#d91f4f]">
+                    {video.title}
+                  </h3>
+                  <div className="relative aspect-video overflow-hidden rounded-2xl bg-[#111]">
                     <Image
                       src={`https://i.ytimg.com/vi/${video.id}/hqdefault.jpg`}
                       alt=""
                       fill
-                      sizes="(min-width: 768px) 25vw, 50vw"
+                      sizes="(min-width: 640px) 33vw, 100vw"
                       className="object-cover transition duration-500 group-hover:scale-105"
                     />
-                    <span className="absolute inset-x-0 top-[10%] flex justify-center px-2">
-                      <Caption>{video.title}</Caption>
-                    </span>
                     <span className="absolute bottom-3 right-3 flex size-11 items-center justify-center rounded-full bg-white/90 text-[#111] transition group-hover:scale-110 group-hover:bg-[#ff3d8b] group-hover:text-white">
                       <svg viewBox="0 0 24 24" aria-hidden="true" className="ml-0.5 size-5" fill="currentColor">
                         <path d="M7 5l12 7-12 7z" />
@@ -351,6 +384,54 @@ export default function Home() {
                     </span>
                   </div>
                   <p className="mt-3 text-xs font-bold uppercase tracking-wider text-[#d91f4f]">{video.tag}</p>
+                </a>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* VIRAL VIDEOS (vertical reels) */}
+        <section id="viral" className="scroll-mt-16 border-t border-[#111]/10">
+          <div className="mx-auto max-w-6xl px-6 py-20">
+            <div className="flex flex-wrap items-end justify-between gap-4">
+              <div>
+                <p className="font-script text-3xl text-[#d91f4f]">as seen on your feed</p>
+                <h2 className={`${blocky.className} mt-1 text-4xl uppercase leading-none tracking-tight text-[#111] sm:text-5xl md:text-6xl`}>
+                  Viral videos
+                </h2>
+              </div>
+              <a
+                href={SOCIALS[0].href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="rounded-full border border-[#111]/15 px-5 py-2 text-sm font-semibold transition hover:border-[#111]/40"
+              >
+                More on Instagram →
+              </a>
+            </div>
+            <div className="mt-12 grid grid-cols-2 gap-4 md:grid-cols-4 md:gap-6">
+              {VIRAL.map((reel) => (
+                <a key={reel.href} href={reel.href} target="_blank" rel="noopener noreferrer" className="group block">
+                  <h3 className="font-display mb-3 flex min-h-[2.5em] items-end text-lg font-bold leading-tight text-[#ff3d8b] transition group-hover:text-[#d91f4f] md:text-xl">
+                    {reel.title}
+                  </h3>
+                  <div className={`relative aspect-[9/16] overflow-hidden rounded-2xl ${reel.bg} transition duration-300 group-hover:-translate-y-1 group-hover:shadow-[0_20px_40px_-20px_rgba(217,31,79,0.6)]`}>
+                    {reel.cover ? (
+                      <Image src={reel.cover} alt="" fill sizes="(min-width: 768px) 25vw, 50vw" className="object-cover object-top transition duration-500 group-hover:scale-105" />
+                    ) : (
+                      <span aria-hidden="true" className="absolute inset-0 flex items-center justify-center text-6xl opacity-90 transition duration-500 group-hover:scale-110 md:text-7xl">
+                        {reel.emoji}
+                      </span>
+                    )}
+                    <span className="absolute left-3 top-3 flex size-8 items-center justify-center rounded-full bg-white/90 text-[#111]">
+                      <SOCIAL_ICONS.Instagram className="size-4" />
+                    </span>
+                    <span className="absolute bottom-3 right-3 flex size-11 items-center justify-center rounded-full bg-white/90 text-[#111] transition group-hover:scale-110 group-hover:bg-[#ff3d8b] group-hover:text-white">
+                      <svg viewBox="0 0 24 24" aria-hidden="true" className="ml-0.5 size-5" fill="currentColor">
+                        <path d="M7 5l12 7-12 7z" />
+                      </svg>
+                    </span>
+                  </div>
                 </a>
               ))}
             </div>
