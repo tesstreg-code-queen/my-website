@@ -441,11 +441,19 @@ export default function Home() {
         {/* ABOUT */}
         <section id="about" className="scroll-mt-16">
           <div className="mx-auto grid max-w-6xl items-center gap-12 px-6 py-24 md:grid-cols-2">
-            <div className="relative flex aspect-square items-center justify-center rounded-[2rem] bg-[#ff3d8b] p-10 text-center text-white">
-              <p className="font-display text-4xl font-black italic leading-tight md:text-5xl">
-                A hopeless romantic in a world of casual dating.
-              </p>
-              <Caption className="absolute -bottom-4 left-8 -rotate-3">a little about me</Caption>
+            {/* headshot in the same pink-and-gold ring as the hero photo */}
+            <div className={`${RING} mx-auto w-full max-w-md rounded-[2.4rem] p-[4px] shadow-[0_24px_50px_-24px_rgba(217,31,79,0.55)]`}>
+              <div className="rounded-[2.15rem] bg-[#fffaf7] p-[6px]">
+                <div className="relative aspect-[4/5] overflow-hidden rounded-[1.8rem]">
+                  <Image
+                    src="/tess-headshot.webp"
+                    alt="Headshot of Tess Tregellas"
+                    fill
+                    sizes="(min-width: 768px) 448px, 90vw"
+                    className="object-cover object-top"
+                  />
+                </div>
+              </div>
             </div>
             <div className="space-y-5 text-lg leading-relaxed text-[#111]/80">
               <SectionTitle kicker="the backstory" title="About" />
