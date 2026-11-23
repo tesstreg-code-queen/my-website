@@ -55,9 +55,10 @@ const HIGHLIGHTS = [
 ];
 
 const VIDEOS = [
-  { id: "-1vGLpEhdIY", title: "Stand-up Set", tag: "Stand-up" },
   { id: "OXo-ZrOFx6o", title: "Acting Reel", tag: "Acting" },
   { id: "LzeTa8El9hE", title: "Betches Original Series", tag: "SISTERS, Ep. 1: “The Move-In”" },
+  { id: "-1vGLpEhdIY", title: "Stand-up Set", tag: "Stand-up" },
+  { id: "5WZdyKKn0FM", title: "Good to See You", tag: "Movie" },
 ];
 
 // Vertical videos (Instagram Reels). Instagram doesn't share preview images,
@@ -95,6 +96,25 @@ const VIRAL = [
 
 // Branded content Reels. Add a brand name as `title` and a screenshot as `cover`
 // (e.g. cover: "/branded/brand-name.webp") when Tess sends them.
+// Media kit numbers (from Tess's media kit). Update these when the kit changes.
+const FOLLOWERS = [
+  { count: "269K", platform: "Instagram", href: "https://www.instagram.com/tesstreg/" },
+  { count: "124K", platform: "TikTok", href: "https://www.tiktok.com/@tesstregellas" },
+  { count: "64K", platform: "YouTube", href: "https://www.youtube.com/channel/UC50PpbE-fxYIG5WtHnBDvmA" },
+] as const;
+
+const IG_STATS = [
+  { value: "19.1M", label: "Monthly reach" },
+  { value: "4.8M", label: "Monthly engagement" },
+  { value: "984.2%", label: "Average IG engagement rate" },
+  { value: "95.04%", label: "Engagement from non-followers" },
+];
+
+const COLLABS = [
+  "Hulu", "Netflix", "Paramount", "Heineken", "Stanley", "Secret",
+  "essie", "Hint", "High Noon", "AZO", "Queen V",
+];
+
 const BRANDED: { href: string; title?: string; cover?: string; bg: string; ink: string }[] = [
   { href: "https://www.instagram.com/reel/DbdtdlwOsCk/", title: "Secret", cover: "/branded/secret.webp", bg: "bg-gradient-to-br from-[#ff3d8b] to-[#d91f4f]", ink: "text-white" },
   { href: "https://www.instagram.com/reel/DY4vcx6REdN/", title: "Toyota", cover: "/branded/toyota.webp", bg: "bg-gradient-to-br from-[#ffe27a] to-[#ff9f6e]", ink: "text-[#111]" },
@@ -385,10 +405,10 @@ export default function Home() {
                 More on YouTube →
               </a>
             </div>
-            <div className="mt-12 grid gap-6 sm:grid-cols-3 md:gap-8">
+            <div className="mt-12 grid grid-cols-2 gap-x-4 gap-y-8 md:grid-cols-4 md:gap-x-5">
               {VIDEOS.map((video) => (
                 <a key={video.id} href={`https://www.youtube.com/watch?v=${video.id}`} className="group block">
-                  <h3 className="font-display mb-3 text-2xl font-bold text-[#ff3d8b] transition group-hover:text-[#d91f4f]">
+                  <h3 className="font-display mb-3 flex min-h-[2.5em] items-end text-lg font-bold leading-tight text-[#ff3d8b] transition group-hover:text-[#d91f4f] md:text-xl">
                     {video.title}
                   </h3>
                   <div className="relative aspect-video overflow-hidden rounded-2xl bg-[#111]">
@@ -396,7 +416,7 @@ export default function Home() {
                       src={`https://i.ytimg.com/vi/${video.id}/hqdefault.jpg`}
                       alt=""
                       fill
-                      sizes="(min-width: 640px) 33vw, 100vw"
+                      sizes="(min-width: 768px) 25vw, 50vw"
                       className="object-cover transition duration-500 group-hover:scale-105"
                     />
                     <span className="absolute bottom-3 right-3 flex size-11 items-center justify-center rounded-full bg-white/90 text-[#111] transition group-hover:scale-110 group-hover:bg-[#ff3d8b] group-hover:text-white">
@@ -501,10 +521,18 @@ export default function Home() {
         </section>
 
         {/* EPIC */}
-        <section id="epic" className="scroll-mt-16 bg-[#111] text-white">
-          <div className="mx-auto grid max-w-6xl items-center gap-14 px-6 py-24 md:grid-cols-2">
+        <section
+          id="epic"
+          className="relative scroll-mt-16 overflow-hidden bg-gradient-to-br from-[#ff5c9c] via-[#ff3d8b] to-[#e0266a] text-white"
+        >
+          {/* floating hearts */}
+          <Heart className="absolute left-[4%] top-10 size-10 -rotate-12 animate-float text-white/25" />
+          <Heart className="absolute right-[6%] top-16 size-14 rotate-12 animate-float text-[#ffe27a]/60 [animation-delay:1s]" />
+          <Heart className="absolute bottom-12 left-[46%] size-8 rotate-6 animate-float text-white/30 [animation-delay:2s]" />
+          <Heart className="absolute bottom-8 right-[3%] size-20 -rotate-6 animate-float text-white/20 [animation-delay:3s]" />
+          <div className="relative mx-auto grid max-w-6xl items-center gap-14 px-6 py-24 md:grid-cols-2">
             <div className="relative mx-auto w-full max-w-sm">
-              <div className="relative aspect-[40/51] overflow-hidden rounded-[2rem]">
+              <div className="relative aspect-[40/51] -rotate-2 overflow-hidden rounded-[2rem] border-4 border-white shadow-[0_24px_50px_-20px_rgba(120,0,40,0.6)] transition hover:rotate-0">
                 <Image
                   src="/epic-poster.jpg"
                   alt="EPIC: Comedy, Music & Romance poster"
@@ -516,10 +544,10 @@ export default function Home() {
               <Caption className="absolute -bottom-4 left-1/2 -translate-x-1/2 -rotate-3 whitespace-nowrap bg-[#ffe27a] text-base">SPECIAL COMING SOON!</Caption>
             </div>
             <div>
-              <p className="font-script text-3xl text-[#ffd3e6]">my solo show</p>
-              <h2 className="font-display text-8xl font-black italic leading-none">EPIC</h2>
-              <p className="font-display mt-2 text-2xl italic text-white/80">Comedy, Music &amp; Romance</p>
-              <p className="mt-6 text-lg leading-relaxed text-white/75">
+              <p className="font-script text-3xl text-[#ffe27a]">my solo show</p>
+              <h2 className="font-display text-8xl font-black italic leading-none [text-shadow:4px_4px_0_rgba(170,10,60,0.45)]">EPIC</h2>
+              <p className="font-display mt-2 text-2xl italic text-white/90">Comedy, Music &amp; Romance</p>
+              <p className="mt-6 text-lg leading-relaxed text-white/90">
                 A hopeless romantic (me) looking for epic romance in a world of casual
                 dating. Come find out if running around New York City in a wedding dress
                 helped me find my prince charming.
@@ -531,8 +559,8 @@ export default function Home() {
                 rel="noopener noreferrer"
                 className="group mt-8 block"
               >
-                <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#ff3d8b]">Watch the teaser</p>
-                <div className="relative mt-3 aspect-video overflow-hidden rounded-2xl bg-black ring-1 ring-white/10 transition group-hover:ring-2 group-hover:ring-[#ff3d8b]">
+                <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#ffe27a]">Watch the teaser</p>
+                <div className="relative mt-3 aspect-video overflow-hidden rounded-2xl bg-black ring-4 ring-white shadow-[0_20px_40px_-20px_rgba(120,0,40,0.6)] transition group-hover:ring-[#ffe27a]">
                   <Image
                     src="https://i.ytimg.com/vi/GeaT2KYBv4o/maxres3.jpg"
                     alt="EPIC teaser video"
@@ -541,7 +569,7 @@ export default function Home() {
                     className="object-cover transition duration-500 group-hover:scale-105"
                   />
                   <span className="absolute inset-0 flex items-center justify-center">
-                    <span className="flex size-16 items-center justify-center rounded-full bg-[#ff3d8b] text-white shadow-[0_8px_24px_-6px_#ff3d8b] transition group-hover:scale-110">
+                    <span className="flex size-16 items-center justify-center rounded-full bg-white text-[#ff3d8b] shadow-[0_8px_24px_-6px_rgba(0,0,0,0.4)] transition group-hover:scale-110">
                       <svg viewBox="0 0 24 24" aria-hidden="true" className="ml-1 size-7" fill="currentColor">
                         <path d="M7 5l12 7-12 7z" />
                       </svg>
@@ -669,7 +697,82 @@ export default function Home() {
                 Let&apos;s work together →
               </a>
             </div>
-            <div className="mt-12 grid grid-cols-2 gap-4 md:grid-cols-4 md:gap-6">
+
+            {/* MEDIA KIT: followers */}
+            <div className="mt-14 grid grid-cols-3 gap-3 sm:gap-6">
+              {FOLLOWERS.map((f) => {
+                const Icon = SOCIAL_ICONS[f.platform];
+                return (
+                  <a
+                    key={f.platform}
+                    href={f.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group flex flex-col items-center rounded-[2rem] bg-[#ffd3e6] px-2 py-6 text-center transition hover:-translate-y-1 hover:bg-[#ffc2dc] sm:py-8"
+                  >
+                    <span className={`${blocky.className} text-2xl leading-none text-[#ff3d8b] sm:text-4xl md:text-5xl lg:text-6xl`}>{f.count}</span>
+                    <span className="mt-2 flex items-center gap-1.5 text-xs font-semibold sm:text-sm">
+                      <Icon className="size-4" /> {f.platform}
+                    </span>
+                  </a>
+                );
+              })}
+            </div>
+
+            {/* MEDIA KIT: Instagram reach + audience */}
+            <div className={`${RING} mt-6 rounded-[2.2rem] p-[3px]`}>
+              <div className="rounded-[2.05rem] bg-[#fffaf7] p-6 sm:p-10">
+                <div className="flex flex-wrap items-baseline justify-between gap-2">
+                  <p className="font-display text-2xl font-black text-[#ff3d8b]">@tesstreg</p>
+                  <p className="text-sm text-[#111]/60">Instagram, by the numbers</p>
+                </div>
+                <p className="mt-2 max-w-2xl text-[15px] leading-relaxed text-[#111]/70">
+                  My comedy travels way past my own followers, while keeping the same core audience.
+                </p>
+
+                <div className="mt-8 grid grid-cols-2 gap-3 md:grid-cols-4 md:gap-5">
+                  {IG_STATS.map((stat) => (
+                    <div key={stat.label} className="rounded-2xl bg-white p-4 shadow-sm sm:p-5">
+                      <p className={`${blocky.className} text-3xl leading-none text-[#111] sm:text-4xl`}>{stat.value}</p>
+                      <p className="mt-2 text-sm leading-snug text-[#111]/65">{stat.label}</p>
+                    </div>
+                  ))}
+                </div>
+
+                <div className="mt-8 grid gap-6 md:grid-cols-[2fr_1fr] md:items-center">
+                  <div>
+                    <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#d91f4f]">Audience</p>
+                    <div className="mt-3 flex h-10 overflow-hidden whitespace-nowrap rounded-full text-xs font-bold sm:text-sm">
+                      <div className="flex items-center bg-[#ff3d8b] pl-3 text-white sm:pl-4" style={{ width: "73.8%" }}>
+                        73.8% women
+                      </div>
+                      <div className="flex flex-1 items-center justify-end bg-[#ffe27a] pr-2 text-[#111] sm:pr-4">26.1% men</div>
+                    </div>
+                  </div>
+                  <div className="rounded-2xl bg-[#111] p-5 text-center text-white">
+                    <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#ffe27a]">Age range</p>
+                    <p className={`${blocky.className} mt-1 text-4xl leading-none`}>18–44</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* MEDIA KIT: previous collaborations */}
+            <div className="mt-14 text-center">
+              <p className="font-script text-3xl text-[#d91f4f]">previous collaborations</p>
+              <ul className="mx-auto mt-5 flex max-w-4xl flex-wrap justify-center gap-2.5 sm:gap-3">
+                {COLLABS.map((brand, i) => (
+                  <li
+                    key={brand}
+                    className={`rounded-full border border-[#111]/10 bg-white px-4 py-2 text-base font-bold shadow-sm sm:px-5 sm:text-lg ${i % 3 === 0 ? "-rotate-2" : i % 3 === 1 ? "rotate-1" : "rotate-2"}`}
+                  >
+                    {brand}
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <div className="mt-14 grid grid-cols-2 gap-4 md:grid-cols-4 md:gap-6">
               {BRANDED.map((reel) => (
                 <a key={reel.href} href={reel.href} target="_blank" rel="noopener noreferrer" className="group block">
                   <h3 className="font-display mb-3 flex min-h-[2.5em] items-end text-lg font-bold leading-tight text-[#ff3d8b] transition group-hover:text-[#d91f4f] md:text-xl">
