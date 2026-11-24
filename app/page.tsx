@@ -103,12 +103,6 @@ const FOLLOWERS = [
   { count: "64K", platform: "YouTube", href: "https://www.youtube.com/channel/UC50PpbE-fxYIG5WtHnBDvmA" },
 ] as const;
 
-const IG_STATS = [
-  { value: "19.1M", label: "Monthly reach" },
-  { value: "4.8M", label: "Monthly engagement" },
-  { value: "984.2%", label: "Average IG engagement rate" },
-  { value: "95.04%", label: "Engagement from non-followers" },
-];
 
 const COLLABS = [
   "Hulu", "Netflix", "Paramount", "Heineken", "Stanley", "Secret",
@@ -713,44 +707,6 @@ export default function Home() {
                   </a>
                 );
               })}
-            </div>
-
-            {/* MEDIA KIT: Instagram reach + audience */}
-            <div className={`${RING} mt-6 rounded-[2.2rem] p-[3px]`}>
-              <div className="rounded-[2.05rem] bg-[#fffaf7] p-6 sm:p-10">
-                <div className="flex flex-wrap items-baseline justify-between gap-2">
-                  <p className="font-display text-2xl font-black text-[#ff3d8b]">@tesstreg</p>
-                  <p className="text-sm text-[#111]/60">Instagram, by the numbers</p>
-                </div>
-                <p className="mt-2 max-w-2xl text-[15px] leading-relaxed text-[#111]/70">
-                  My comedy travels way past my own followers, while keeping the same core audience.
-                </p>
-
-                <div className="mt-8 grid grid-cols-2 gap-3 md:grid-cols-4 md:gap-5">
-                  {IG_STATS.map((stat) => (
-                    <div key={stat.label} className="rounded-2xl bg-white p-4 shadow-sm sm:p-5">
-                      <p className={`${blocky.className} text-3xl leading-none text-[#111] sm:text-4xl`}>{stat.value}</p>
-                      <p className="mt-2 text-sm leading-snug text-[#111]/65">{stat.label}</p>
-                    </div>
-                  ))}
-                </div>
-
-                <div className="mt-8 grid gap-6 md:grid-cols-[2fr_1fr] md:items-center">
-                  <div>
-                    <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#d91f4f]">Audience</p>
-                    <div className="mt-3 flex h-10 overflow-hidden whitespace-nowrap rounded-full text-xs font-bold sm:text-sm">
-                      <div className="flex items-center bg-[#ff3d8b] pl-3 text-white sm:pl-4" style={{ width: "73.8%" }}>
-                        73.8% women
-                      </div>
-                      <div className="flex flex-1 items-center justify-end bg-[#ffe27a] pr-2 text-[#111] sm:pr-4">26.1% men</div>
-                    </div>
-                  </div>
-                  <div className="rounded-2xl bg-[#111] p-5 text-center text-white">
-                    <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#ffe27a]">Age range</p>
-                    <p className={`${blocky.className} mt-1 text-4xl leading-none`}>18–44</p>
-                  </div>
-                </div>
-              </div>
             </div>
 
             {/* MEDIA KIT: previous collaborations */}
